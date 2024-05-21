@@ -1,0 +1,56 @@
+.cardsContainer{
+    margin-top: 20px;
+    position: relative;
+}
+.ant-card-body{
+    padding: 15px 5px !important;
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+   
+}
+.addCartBtn{
+    background-color:  rgb(41, 180, 41) !important;
+    color: #e3dede !important;
+    font-size: 14px !important;
+    font-weight: 400 !important;
+}
+.viewDetailsBtn{
+    color: grey !important;
+    font-weight: 300 !important;
+    border: 1px solid grey !important;
+}
+.singleCard{
+    margin-top: 20px !important;
+}
+.cardItem{
+    box-shadow: 3px 9px 10px -7px rgba(50, 43, 43, 0.18);
+}
+.cardItem p{
+    margin-left: 7px;
+}
+.loader{
+    width: 100%;
+    height: 95vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.modalWrapper2{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 5px;
+}
+.itemName{
+    border-radius: 25px !important;
+    color: black !important;
+    font-size: 14px !important;
+    background-color: #e3dede !important;
+    font-weight: normal !important;
+    margin: 5px 10px !important;
+    text-transform: lowercase !important;
+}
+.firstmodal{
+    font-size: 22px;
+}
