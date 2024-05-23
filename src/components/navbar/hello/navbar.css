@@ -18,6 +18,7 @@
     list-style: none;
    font-size: 14px;
 }
+
 .storeName{
     border: 1px solid black;
 }
@@ -44,4 +45,77 @@
 }
 .active{
     color: blue;
+}
+ /* Drawer CSS */
+ .drawerModal{
+    padding: 0 !important;
+ }
+ .orderContainer{
+    display: flex;
+   
+    
+   
+ }
+ .descWrapper{
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    width: 100%;
+ }
+ .css-1p823my-MuiListItem-root{
+    border-bottom: 1px solid rgb(226, 219, 219);
+    
+ }
+ 
+ .orderContainer2{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 300px;
+
+ }
+ .categoryPrice{
+    font-size: 12px;
+ }
+ .orderImage{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    object-fit: cover;
+ }
+ .orderImage img{
+    width: 100%;
+    height: auto;
+ }
+ .addAndRemoveWrapper{
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: rgb(125, 124, 124);
+ }
+.orderButtons{
+    border-radius: 50%;
+    padding: 0;
+    border: 1px solid rgb(85, 83, 83);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: rgb(125, 124, 124);
+}
+.dltButton{
+    background-color: transparent;
+    border: none;
+    outline: none;
+    color: red;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.checkoutBtn{
+    display: flex;
+    justify-content: center;
+    background-color: rgb(41, 180, 41) !important;
+    width: 100%;
+    margin: 10px 0 !important;
+    color: #fff !important;
 }

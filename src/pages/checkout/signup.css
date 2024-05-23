@@ -1,0 +1,35 @@
+.MuiAutocomplete-root .MuiAutocomplete-hasPopupIco {
+    display: none !important;
+}
+.gridContainer{
+    margin: 20px auto !important;
+}
+.inputContainer{
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+.custom-textfield .MuiOutlinedInput-root {
+    border-radius: 5px;
+    color: #1b1b1b !important;
+}
+
+.custom-textfield .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline {
+    border-color: #1b1b1b;
+}
+
+.custom-textfield .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline {
+    border-color: #1b1b1b;
+}
+
+.custom-textfield .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
+    border-color:  rgb(41, 180, 41);
+}
+
+.custom-textfield .MuiInputLabel-root {
+    color: #6851ff;
+}
+
+.custom-textfield .MuiInputLabel-root.Mui-focused {
+    color: red;
+}

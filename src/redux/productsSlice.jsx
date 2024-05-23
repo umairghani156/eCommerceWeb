@@ -20,8 +20,7 @@ const productsSlice = createSlice({
         },
         getProductsFailure: (state,{payload})=>{
             state.loading = false;
-            state.loading = payload;
-            
+            state.error = payload; 
         },
     }
 });

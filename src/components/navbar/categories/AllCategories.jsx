@@ -11,10 +11,12 @@ import Typography from '@mui/material/Typography';
 
 import axios from 'axios';
 
-import { useEffect, useState } from 'react';
+import { memo, useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getProductsPending, getProductsSuccess } from '../../../redux/productsSlice';
 import { useLocation } from 'react-router-dom';
+import { getProductFailure, getProductSuccess } from '../../../redux/productSlice';
+import { getSelectedProductsPending, getSelectedProductsSuccess } from '../../../redux/selectedProductsSlice';
 
 const { Meta } = Card;
 
@@ -35,44 +37,71 @@ const style = {
     transform: 'translate(-50%, -50%)',
     width: 400,
     bgcolor: 'background.paper',
-    border: '2px solid #000',
     boxShadow: 24,
-    p: 4,
+    p: 1,
+    borderRadius:"4px"
 };
 const AllCategories = () => {
     const dispatch = useDispatch()
     const { products, loading } = useSelector(state => state.products)
+
+    const { product,loader} = useSelector(state => state.product);
+    const { selectedProducts} = useSelector(state => state.selectedProducts);
+
+    console.log("product",product);
+
     const location = useLocation();
     console.log("lo", location.pathname);
     const [open, setOpen] = useState(false);
+    const [products2, setProducts] = useState([])
 
 
     const handleOpen = () => {
-        setOpen(true);
+       
     };
     const handleClose = () => {
         setOpen(false);
     };
+    const productHandler = (id)=>{
+        setOpen(true);
+        try{
+        let singleProduct = products.find((product)=> product.id === id)
+        console.log("id",singleProduct);
+         dispatch(getProductSuccess(singleProduct))
+        }catch(error){
+          dispatch(getProductFailure(error.message));
+        }
+    }
+    
+    const selectedProductsHandler = (id) =>{
+       dispatch(getSelectedProductsPending())
+        try{
+        const selectedProduct =  products.find((product)=> product.id === id)
+        console.log("sel",selectedProduct);
+        dispatch(getSelectedProductsSuccess([...selectedProducts,selectedProduct]))
+        }catch(error){
 
+        }
+    }
 
-    const [products2, setProducts] = useState([])
-
-    const allProducts = async () => {
+    const allProducts =async () => {
 
 
         dispatch(getProductsPending())
         try {
             const res = await axios.get("https://fakestoreapi.com/products");
-            setProducts(res.data);
+           
             dispatch(getProductsSuccess(res.data))
         } catch (error) {
             console.log(error);
         }
     }
     useEffect(() => {
-        allProducts()
+        if(products.length == 0){
+
+            allProducts()
+        }
     }, [])
-    console.log(products);
 
 
     return (
@@ -85,15 +114,17 @@ const AllCategories = () => {
             >
                 <Box sx={style}>
                     <div className="modalInfo">
-                        <div className="modalWrapper1"></div>
+                        <div className="modalWrapper1">
+                            <img className='productImageS' src={product?.image} alt="" />
+                        </div>
                         <div className="modalWrapper2">
-                            <p className='firstmodal'>Hello my name is hdsajdasjdkaskkjakdh</p>
-                            <p>gardatdfgdadadasddugasd</p>
+                            <p className='firstmodal'>{product?.title}</p>
+                            <p className='secondModalP'>{product?.description?.slice(0, 100)}</p>
                             <Stack spacing={1} style={{ marginLeft: "7px" }}>
-                                <Rating name="size-small" defaultValue={2} size="small" />
+                                <Rating name="size-small" defaultValue={product?.rating?.rate} readOnly size="small" />
                             </Stack>
-                            <p>Price 150/-</p>
-                            <Button className='itemName'>ADD TO CART</Button>
+                            <p>Rs {product?.price}/-</p>
+                            <Button className='itemName'>{product?.category}</Button>
                             <Stack spacing={2} direction="row">
                                 <Button className='addCartBtn'>ADD TO CART</Button>
                                 <Button variant="outlined" className='viewDetailsBtn' >BUY NOW</Button>
@@ -122,8 +153,8 @@ const AllCategories = () => {
                                         className='cardItem'
                                         style={{ width: "100%", height: "100%", display: "flex", flexDirection: "column" }}
                                         cover={
-                                            <div style={{ height: "300px", display: "flex", justifyContent: "center", alignItems: "center" }}>
-                                                <img alt="example" style={{ height: "90%", width: "85%" }} src={product.image} />
+                                            <div style={{ height: "300px",width:"100%", display: "flex",objectFit:"cover", justifyContent: "center", alignItems: "center" }}>
+                                                <img alt="example" style={{ height: "85%", width: "85%" }} src={product.image} />
                                             </div>}
                                     >
                                         <p>{product.price}</p>
@@ -132,8 +163,8 @@ const AllCategories = () => {
                                             <Rating name="size-small" defaultValue={product.rating.rate} readOnly size="small" />
                                         </Stack>
                                         <Stack spacing={2} direction="row">
-                                            <Button className='addCartBtn'>ADD TO CART</Button>
-                                            <Button variant="outlined" className='viewDetailsBtn' onClick={handleOpen}>VIEW DETAILS</Button>
+                                            <Button className='addCartBtn' onClick={()=>selectedProductsHandler(product?.id)}>ADD TO CART</Button>
+                                            <Button variant="outlined" className='viewDetailsBtn' onClick={()=> productHandler(product?.id)}>VIEW DETAILS</Button>
                                         </Stack>
                                     </Card>
                                 </Grid>))
@@ -145,4 +176,4 @@ const AllCategories = () => {
     )
 }
 
-export default AllCategories
+export default AllCategories;
