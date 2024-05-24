@@ -1,5 +1,5 @@
 import './navbar.css';
-import { Box, Container, Grid, Paper, Drawer, Button, List, ListItem, ListItemText } from '@mui/material';
+import { Box, Container, Grid, Paper, Drawer, Button, List, ListItem, ListItemText, Alert } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import Badge from '@mui/material/Badge';
 import IconButton from '@mui/material/IconButton';
@@ -11,6 +11,7 @@ import { useCallback, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import AddOutlinedIcon from '@mui/icons-material/AddOutlined';
 import RemoveOutlinedIcon from '@mui/icons-material/RemoveOutlined';
+import WarningAmberIcon from '@mui/icons-material/WarningAmber';
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 import { decrementQuantity, deleteProduct, incrementQuantity } from '../../../redux/selectedProductsSlice';
 
@@ -91,9 +92,15 @@ const Navbar = () => {
         console.log("id",id);
         dispatch(deleteProduct(id))
     }
+
+    const CheckOutHandler = ()=>{
+        console.log("run");
+    }
+    console.log("sele",selectedProducts);
     return (
-        <>
-            <Drawer anchor="right" open={isDrawerOpen} onClose={toggleDrawer(false)}>
+        <>  
+                <Drawer anchor="right"  open={isDrawerOpen} onClose={toggleDrawer(false)}>
+            {  selectedProducts && selectedProducts.length > 0 ?
                 <List >
                     {selectedProducts?.map((select) => (
 
@@ -127,9 +134,17 @@ const Navbar = () => {
                         </ListItem>
                     ))
                     }
-                    <Button className="checkoutBtn">Checkout</Button>
+                    <Button className="checkoutBtn" onClick={CheckOutHandler}>Checkout</Button>
 
-                </List>
+                </List>:
+            <div className='noItemPar'>
+                <div className="noItemWrapper">
+                <Alert severity="warning" style={{ margin: '50px' }}>
+               Your cart is Empty
+        </Alert>
+                </div>
+            </div>
+            }
             </Drawer>
             <div className='navbarContainerPar'>
                 <Container className='navbar'>

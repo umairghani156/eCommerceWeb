@@ -1,4 +1,5 @@
 import { Box, Container, Grid, Paper } from '@mui/material';
+import { ToastContainer, toast } from "react-toastify";
 import './allCategories.css';
 import { styled } from '@mui/material/styles';
 import { Card } from 'antd';
@@ -9,6 +10,7 @@ import CircularProgress from '@mui/material/CircularProgress';
 import Modal from '@mui/material/Modal';
 import Typography from '@mui/material/Typography';
 
+
 import axios from 'axios';
 
 import { memo, useCallback, useEffect, useState } from 'react';
@@ -18,6 +20,7 @@ import { useLocation } from 'react-router-dom';
 import { getProductFailure, getProductSuccess } from '../../../redux/productSlice';
 import { getSelectedProductsPending, getSelectedProductsSuccess } from '../../../redux/selectedProductsSlice';
 
+import 'react-toastify/dist/ReactToastify.css';
 const { Meta } = Card;
 
 
@@ -39,16 +42,16 @@ const style = {
     bgcolor: 'background.paper',
     boxShadow: 24,
     p: 1,
-    borderRadius:"4px"
+    borderRadius: "4px"
 };
 const AllCategories = () => {
     const dispatch = useDispatch()
     const { products, loading } = useSelector(state => state.products)
 
-    const { product,loader} = useSelector(state => state.product);
-    const { selectedProducts} = useSelector(state => state.selectedProducts);
+    const { product, loader } = useSelector(state => state.product);
+    const { selectedProducts } = useSelector(state => state.selectedProducts);
 
-    console.log("product",product);
+    console.log("product", product);
 
     const location = useLocation();
     console.log("lo", location.pathname);
@@ -57,55 +60,100 @@ const AllCategories = () => {
 
 
     const handleOpen = () => {
-       
+
     };
     const handleClose = () => {
         setOpen(false);
     };
-    const productHandler = (id)=>{
+    const productHandler = (id) => {
         setOpen(true);
-        try{
-        let singleProduct = products.find((product)=> product.id === id)
-        console.log("id",singleProduct);
-         dispatch(getProductSuccess(singleProduct))
-        }catch(error){
-          dispatch(getProductFailure(error.message));
-        }
-    }
-    
-    const selectedProductsHandler = (id) =>{
-       dispatch(getSelectedProductsPending())
-        try{
-        const selectedProduct =  products.find((product)=> product.id === id)
-        console.log("sel",selectedProduct);
-        dispatch(getSelectedProductsSuccess([...selectedProducts,selectedProduct]))
-        }catch(error){
-
+        try {
+            let singleProduct = products.find((product) => product.id === id)
+            console.log("id", singleProduct);
+            dispatch(getProductSuccess(singleProduct))
+        } catch (error) {
+            dispatch(getProductFailure(error.message));
         }
     }
 
-    const allProducts =async () => {
+    const selectedProductsHandler = (id) => {
+        console.log("run");
+        dispatch(getSelectedProductsPending())
+        try {
+            const selectedProduct = products.find((product) => product.id === id)
+            console.log("sel", selectedProduct);
+            dispatch(getSelectedProductsSuccess([...selectedProducts, selectedProduct]))
+            const productName = selectedProduct.title.slice(0, 10)
+           
+            toast.success(`${productName}.. added successfully!`, {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+                });
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    const allProducts = async () => {
 
 
         dispatch(getProductsPending())
         try {
             const res = await axios.get("https://fakestoreapi.com/products");
-           
+
             dispatch(getProductsSuccess(res.data))
         } catch (error) {
             console.log(error);
         }
     }
     useEffect(() => {
-        if(products.length == 0){
+        if (products.length == 0) {
 
             allProducts()
         }
-    }, [])
+    }, []);
+
+    const addToCartHandler = (data) => {
+        try {
+            dispatch(getSelectedProductsSuccess([...selectedProducts, data]));
+            toast.success(`${data?.title?.slice(0, 10)}.. added successfully!`, {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+                });
+        } catch (error) {
+            console.log(error);
+        }
+
+    }
 
 
     return (
         <>
+         <ToastContainer
+                position="top-right"
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="light"
+/>
+
             <Modal
                 open={open}
                 onClose={handleClose}
@@ -126,7 +174,7 @@ const AllCategories = () => {
                             <p>Rs {product?.price}/-</p>
                             <Button className='itemName'>{product?.category}</Button>
                             <Stack spacing={2} direction="row">
-                                <Button className='addCartBtn'>ADD TO CART</Button>
+                                <Button className='addCartBtn' onClick={() => addToCartHandler(product)}>ADD TO CART</Button>
                                 <Button variant="outlined" className='viewDetailsBtn' >BUY NOW</Button>
                             </Stack>
                         </div>
@@ -134,6 +182,7 @@ const AllCategories = () => {
                     </div>
                 </Box>
             </Modal>
+           
             <Container className='cardsContainer'>
 
 
@@ -153,7 +202,7 @@ const AllCategories = () => {
                                         className='cardItem'
                                         style={{ width: "100%", height: "100%", display: "flex", flexDirection: "column" }}
                                         cover={
-                                            <div style={{ height: "300px",width:"100%", display: "flex",objectFit:"cover", justifyContent: "center", alignItems: "center" }}>
+                                            <div style={{ height: "300px", width: "100%", display: "flex", objectFit: "cover", justifyContent: "center", alignItems: "center" }}>
                                                 <img alt="example" style={{ height: "85%", width: "85%" }} src={product.image} />
                                             </div>}
                                     >
@@ -163,8 +212,8 @@ const AllCategories = () => {
                                             <Rating name="size-small" defaultValue={product.rating.rate} readOnly size="small" />
                                         </Stack>
                                         <Stack spacing={2} direction="row">
-                                            <Button className='addCartBtn' onClick={()=>selectedProductsHandler(product?.id)}>ADD TO CART</Button>
-                                            <Button variant="outlined" className='viewDetailsBtn' onClick={()=> productHandler(product?.id)}>VIEW DETAILS</Button>
+                                            <Button className='addCartBtn' onClick={() => selectedProductsHandler(product?.id)}>ADD TO CART</Button>
+                                            <Button variant="outlined" className='viewDetailsBtn' onClick={() => productHandler(product?.id)}>VIEW DETAILS</Button>
                                         </Stack>
                                     </Card>
                                 </Grid>))

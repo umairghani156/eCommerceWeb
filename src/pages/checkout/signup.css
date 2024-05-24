@@ -33,3 +33,9 @@
 .custom-textfield .MuiInputLabel-root.Mui-focused {
     color: red;
 }
+.placeOrderBtn{
+    background-color: rgb(41, 180, 41) !important;
+    text-transform: uppercase !important;
+    font-weight: 500 !important;
+    color: aliceblue;
+}

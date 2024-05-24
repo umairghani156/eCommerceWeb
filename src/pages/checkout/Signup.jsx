@@ -4,6 +4,7 @@ import Autocomplete from '@mui/material/Autocomplete';
 import TextField from '@mui/material/TextField';
 import "./signup.css"
 import Navbar from '../../components/navbar/hello/Navbar';
+import { Button } from 'antd';
 
 
 const Signup = () => {
@@ -28,6 +29,7 @@ const Signup = () => {
                 <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }} >
                     <Grid item xs={12} sm={6} md={6} lg={6} xl={6} className='gridContainer'>
                         <div className="inputContainer">
+                            <h2 style={{textAlign:"center"}}>CHECKOUT</h2>
                         <Autocomplete
                             className="google-map-demo custom-autocomplete"
                             style={{ width: "100%", height: "45px", display: "flex", alignItems: "center", justifyContent: "center" }}
@@ -57,7 +59,7 @@ const Signup = () => {
                                     ),
                                 }}
                                     InputLabelProps={{
-                                        style: { color:"#6851ff" }
+                                        style: { color:"black" }
                                     }}                                  
                                 />
                                 
@@ -92,7 +94,7 @@ const Signup = () => {
                                     ),
                                 }}
                                     InputLabelProps={{
-                                        style: { color:"#6851ff" }
+                                        style: { color:"black" }
                                     }}                                  
                                 />
                                 
@@ -127,7 +129,7 @@ const Signup = () => {
                                     ),
                                 }}
                                     InputLabelProps={{
-                                        style: { color:"#6851ff" }
+                                        style: { color:"black" }
                                     }}                                  
                                 />
                                 
@@ -162,13 +164,14 @@ const Signup = () => {
                                     ),
                                 }}
                                     InputLabelProps={{
-                                        style: { color:"#6851ff" }
+                                        style: { color:"black" }
                                     }}                                  
                                 />
                                 
                             )}
                         />
 
+                        <Button className='placeOrderBtn'>Place order</Button>
                         </div>
                     </Grid>
                 </Grid>
