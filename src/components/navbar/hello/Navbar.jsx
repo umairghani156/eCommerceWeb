@@ -34,7 +34,7 @@ const Navbar = () => {
     const [windowWidth, setWindowWidth] = useState(window.innerWidth);
     console.log("width",windowWidth);
     const [count, setCount] = useState(0);
-    const [isMenu, setIsMenu] = useState(true)
+    const [isMenu, setIsMenu] = useState(false)
     const [selectedCategory, setSelectedCategory] = useState('');
     const navigate = useNavigate();
     const dispatch = useDispatch();
@@ -111,7 +111,8 @@ const Navbar = () => {
       
             if (newWindowWidth > 580) {
               setIsMenu(true);
-            }else{
+            }
+            else{
             setIsMenu(false);
             }
         };
