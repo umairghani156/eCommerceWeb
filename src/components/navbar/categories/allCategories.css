@@ -73,3 +73,20 @@
     font-size: 12px;
     color: rgb(50, 48, 48);
 }
+@media (max-width: 400px){
+    .modalInfo{
+        flex-direction: column;
+        justify-content: center;
+        align-items:center ;
+        padding: 20px;
+    }
+    .modalWrapper2{
+        width: 80%;
+    }
+    .firstmodal{
+        font-size: 18px;
+    }
+    .secondModalP{
+        font-size: 10px;
+    }
+}

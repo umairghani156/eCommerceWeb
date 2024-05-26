@@ -49,12 +49,18 @@ const Signup = () => {
         console.log("phone", inputValue2);
         console.log("email", inputValue3);
         console.log("address", inputValue4);
-        const user = {
-            fullName: inputValue,
-            phone: inputValue2,
-            email: inputValue3,
-            address: inputValue4,
-        }
+        if(!inputValue || !inputValue2 || !inputValue3 || !inputValue4){
+            toast.error("All fields are required!", {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+                });
+        }else{
         await createUserWithEmailAndPassword(auth, inputValue3, inputValue2)
             .then((userCredential) => {
                 // Signed up 
@@ -74,7 +80,7 @@ const Signup = () => {
                 }
 
                 setTimeout(()=>{
-                    navigate("/login")
+                    navigate("/order")
                 },1000)
                 // ...
             })
@@ -85,6 +91,7 @@ const Signup = () => {
                 console.log(errorMessage);
                 // ..
             });
+        }
 
     }
     useEffect(()=>{

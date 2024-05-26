@@ -111,6 +111,8 @@ const Navbar = () => {
       
             if (newWindowWidth > 580) {
               setIsMenu(true);
+            }else{
+            setIsMenu(false);
             }
         };
        
