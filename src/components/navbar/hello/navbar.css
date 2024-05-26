@@ -122,3 +122,33 @@
 .noItemPar{
     width: 300px;
 }
+.menuChangingIcon{
+    display: none !important;
+}
+@media (max-width: 585px) {
+    .menuChangingIcon{
+        display: flex !important;
+    }
+    .navbar{
+        position: relative;
+        z-index: 999;
+    }
+    .storeNameLink{
+        display: none;
+    }
+    .categoryInfo ul{
+        display: block;
+        position: absolute;
+       
+        width: 100%;
+        left: 0;
+        background-color: rgb(41, 180, 41) !important;
+    }
+   
+    .categoryList li{
+        padding: 10px 15px;
+    }
+    .categoryList li:focus{
+        background-color: aquamarine !important;
+    }
+  }

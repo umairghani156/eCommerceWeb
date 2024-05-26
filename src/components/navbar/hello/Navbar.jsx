@@ -1,5 +1,6 @@
 import './navbar.css';
 import { Box, Container, Grid, Paper, Drawer, Button, List, ListItem, ListItemText, Alert } from '@mui/material';
+import MenuOutlinedIcon from '@mui/icons-material/MenuOutlined';
 import { styled } from '@mui/material/styles';
 import Badge from '@mui/material/Badge';
 import IconButton from '@mui/material/IconButton';
@@ -7,7 +8,7 @@ import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { useDispatch, useSelector } from 'react-redux';
 import { getProductsPending, getProductsSuccess } from '../../../redux/productsSlice';
 import axios from 'axios';
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import AddOutlinedIcon from '@mui/icons-material/AddOutlined';
 import RemoveOutlinedIcon from '@mui/icons-material/RemoveOutlined';
@@ -30,7 +31,10 @@ const StyledBadge = styled(Badge)(({ theme }) => ({
 
 
 const Navbar = () => {
-    const [count, setCount] = useState(0)
+    const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+    console.log("width",windowWidth);
+    const [count, setCount] = useState(0);
+    const [isMenu, setIsMenu] = useState(true)
     const [selectedCategory, setSelectedCategory] = useState('');
     const navigate = useNavigate();
     const dispatch = useDispatch();
@@ -40,6 +44,7 @@ const Navbar = () => {
     const [isDrawerOpen, setIsDrawerOpen] = useState(false);
     const { selectedProducts } = useSelector(state => state.selectedProducts);
     console.log("selected hey", selectedProducts);
+
 
     const toggleDrawer = (open) => (event) => {
         if (
@@ -94,9 +99,34 @@ const Navbar = () => {
     }
 
     const CheckOutHandler = ()=>{
-        console.log("run");
+       navigate("/checkout")
     }
     console.log("sele",selectedProducts);
+
+    
+    useEffect(() => {
+        const handleResize = () => {
+            const newWindowWidth = window.innerWidth;
+            setWindowWidth(newWindowWidth);
+      
+            if (newWindowWidth > 580) {
+              setIsMenu(true);
+            }
+        };
+       
+        
+        window.addEventListener('resize', handleResize);
+    
+        // Cleanup event listener on component unmount
+        return () => {
+          window.removeEventListener('resize', handleResize);
+        };
+      }, []);
+      const menuHandler = ()=>{
+        if(windowWidth <= 580){
+        setIsMenu((prev)=>!prev)
+        }
+    }
     return (
         <>  
                 <Drawer anchor="right"  open={isDrawerOpen} onClose={toggleDrawer(false)}>
@@ -151,19 +181,20 @@ const Navbar = () => {
                     <Box sx={{ width: '100%' }}>
                         <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
                             <Grid item xs={6} sm={6} md={2} lg={5} xl={4} order={{ xs: 1, md: 1 }} style={{ display: "flex", alignItems: "center" }}>
-                                <div className='storeName'>
-                                    <Link to="/" style={{ textDecoration: "none", color: "white" }}>
-                                        <h3>SMIT STORE</h3>
+                                <div className='storeName' key={Date.now()+"ab"}>
+                                    <MenuOutlinedIcon className='menuChangingIcon' sx={{fontSize:"2.5rem",cursor:"pointer"}} onClick={menuHandler}/>
+                                    <Link to="/" style={{ textDecoration: "none", color: "white" }} className='storeNameLink'>
+                                        <h3 >SWIFTCART STORE</h3>
                                     </Link>
                                 </div>
                             </Grid>
 
                             <Grid item xs={12} sm={12} md={8} lg={6} xl={6} order={{ xs: 3, md: 2 }} style={{ display: "flex", alignItems: "center", justifyContent: "flex-end" }}>
                                 <div className='categoryInfo'>
-                                    <ul>
-                                        {
+                                    <ul className='categoryList'>
+                                        { isMenu &&
                                             categories.map((category) => (
-                                                <li className={selectedCategory === category ? "active" : ""} onClick={() => categoryHandler(category)}>{category.toUpperCase()}</li>
+                                                <li className={selectedCategory === category ? "active" : ""} onClick={() => categoryHandler(category)} tabindex="0">{category.toUpperCase()}</li>
                                             ))
                                         }
                                     </ul>
@@ -173,7 +204,7 @@ const Navbar = () => {
                                 <div className='cardIcon'>
                                     <IconButton aria-label="cart" onClick={toggleDrawer(true)}>
                                         <StyledBadge badgeContent={selectedProducts.length} color="secondary" >
-                                            <ShoppingCartIcon />
+                                            <ShoppingCartIcon style={{color:"#fff"}}/>
                                         </StyledBadge>
                                     </IconButton>
                                 </div>

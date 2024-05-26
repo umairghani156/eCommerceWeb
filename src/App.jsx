@@ -9,6 +9,8 @@ import { store } from './redux/store'
 import Home from "./pages/home/Home"
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import Signup from './pages/checkout/Signup'
+import OrderSelect from './pages/order/OrderSelect'
+import Login from './pages/login/Login'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -20,6 +22,10 @@ function App() {
        <Route path="/" element={<Home/>}/>
        <Route path='/products/category/:name' element={<Home/>}/>
        <Route path='/checkout' element={<Signup/>}/>
+       <Route path='/login' element={<Login/>}/>
+
+       <Route path='/order' element={<OrderSelect/>}/>
+
 
      </Routes>
      </BrowserRouter>

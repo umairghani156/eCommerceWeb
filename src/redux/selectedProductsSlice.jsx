@@ -42,10 +42,15 @@ const selectedProductsSlice = createSlice({
         },
         deleteProduct: (state, { payload }) => {
             state.selectedProducts = state.selectedProducts.filter(p => p.id !== payload);
+        },
+        getSelectedProductsEmpty: (state)=>{
+            state.selectedProducts = [],
+            state.loading= false,
+            state.error = false
         }
     }
 });
 
 const {actions, reducer} = selectedProductsSlice;
-export const {getSelectedProductsPending, getSelectedProductsSuccess, getSelectedProductsFailure,incrementQuantity, decrementQuantity, deleteProduct} = actions;
+export const {getSelectedProductsPending, getSelectedProductsSuccess, getSelectedProductsFailure,incrementQuantity, decrementQuantity, deleteProduct,getSelectedProductsEmpty} = actions;
 export default reducer;
