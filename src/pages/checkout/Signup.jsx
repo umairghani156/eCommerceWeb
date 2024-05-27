@@ -50,7 +50,7 @@ const Signup = () => {
         console.log("email", inputValue3);
         console.log("address", inputValue4);
         if(!inputValue || !inputValue2 || !inputValue3 || !inputValue4){
-            toast.error("All fields are required!", {
+          return   toast.error("All fields are required!", {
                 position: "top-right",
                 autoClose: 5000,
                 hideProgressBar: false,
