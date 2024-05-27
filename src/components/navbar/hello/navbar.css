@@ -145,7 +145,7 @@
         background-color: rgb(41, 180, 41) !important;
     }
     .mobile{
-        display: none;
+        display: none !important;
     }
     .categoryList li{
         padding: 10px 15px;
