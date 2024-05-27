@@ -128,7 +128,7 @@ const Navbar = () => {
       }, []);
       const menuHandler = ()=>{
         if(windowWidth <= 580){
-        setIsMenu(isMenu)
+        setIsMenu(!isMenu)
         }
     }
     return (
