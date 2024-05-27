@@ -110,16 +110,15 @@ const Navbar = () => {
             const newWindowWidth = window.innerWidth;
             setWindowWidth(newWindowWidth);
       
-            if (newWindowWidth > 580) {
-              setIsMenu(true);
-            }
-            else if(newWindowWidth < 580){
-            setIsMenu(false);
-            }
         };
-       
+        
         
         window.addEventListener('resize', handleResize);
+        if (windowWidth > 580) {
+          setIsMenu(true);
+        }else{
+        setIsMenu(false);
+        }
     
         // Cleanup event listener on component unmount
         return () => {
@@ -195,8 +194,8 @@ const Navbar = () => {
 
                             <Grid item xs={12} sm={12} md={8} lg={6} xl={6} order={{ xs: 3, md: 2 }} style={{ display: "flex", alignItems: "center", justifyContent: "flex-end" }}>
                                 <div className='categoryInfo'>
-                                    <ul className={`categoryList`}>
-                                        { isMenu &&
+                                    <ul className={`categoryList ${isMenu ? 'active' : ''}`}>
+                                        {
                                             categories.map((category) => (
                                                 <li className={selectedCategory === category ? "active" : ""} onClick={() => categoryHandler(category)} tabindex="0">{category.toUpperCase()}</li>
                                             ))

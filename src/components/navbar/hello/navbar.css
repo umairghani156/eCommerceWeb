@@ -137,15 +137,16 @@
         display: none;
     }
     .categoryInfo ul{
-        display: block;
+        display: none;
         position: absolute;
        
         width: 100%;
         left: 0;
         background-color: rgb(41, 180, 41) !important;
     }
-    .mobile{
-        display: none !important;
+    .categoryInfo ul.active {
+        display: block; /* Displayed when active */
+        color: #fff;
     }
     .categoryList li{
         padding: 10px 15px;
