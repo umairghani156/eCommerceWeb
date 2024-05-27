@@ -76,7 +76,7 @@
 .handleCloseBtn{
     display: none;
 }
-@media (max-width: 400px){
+@media (max-width: 410px){
     .modalInfo{
         position: relative;
     }
@@ -84,13 +84,21 @@
     .handleCloseBtn{
         display: flex;
         position: absolute;
-        top: 10px;
-        right: 10;
+        top: 10;
+        right: 0;
         padding: 5px;
         border-radius: 25px;
+        color: red;
     }
     .handleCloseBtn:hover{
         background-color: #e3dede;
+    }
+    .modalWrapper1{
+        display: flex;
+        justify-content: center;
+    }
+    .productImageS{
+        width: 70%;
     }
     .modalInfo{
         flex-direction: column;
