@@ -9,6 +9,7 @@ import Button from '@mui/material/Button';
 import CircularProgress from '@mui/material/CircularProgress';
 import Modal from '@mui/material/Modal';
 import Typography from '@mui/material/Typography';
+import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
 
 
 import axios from 'axios';
@@ -164,6 +165,7 @@ const AllCategories = () => {
                     <div className="modalInfo">
                         <div className="modalWrapper1">
                             <img className='productImageS' src={product?.image} alt="" />
+                            <CloseOutlinedIcon className='handleCloseBtn' onClick={handleClose}/>
                         </div>
                         <div className="modalWrapper2">
                             <p className='firstmodal'>{product?.title}</p>

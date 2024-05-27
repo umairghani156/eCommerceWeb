@@ -77,11 +77,9 @@ const Signup = () => {
                         progress: undefined,
                         theme: "light",
                         });                       
-                        setTimeout(()=>{
-                            navigate("/order")
-                        },1000)
+                       
                 }
-
+               
                
                 // ...
             })
@@ -92,6 +90,9 @@ const Signup = () => {
                 console.log(errorMessage);
                 // ..
             });
+            setTimeout(()=>{
+                navigate("/order")
+            },1000)
         }
 
     }

@@ -63,7 +63,7 @@
 }
 .modalWrapper1{
     width: 300px;
-    height: 100%;
+   
 }
 .productImageS{
     width: 100%;
@@ -73,15 +73,30 @@
     font-size: 12px;
     color: rgb(50, 48, 48);
 }
+.handleCloseBtn{
+    display: none;
+}
 @media (max-width: 400px){
+    .modalInfo{
+        position: relative;
+    }
+
+    .handleCloseBtn{
+        display: flex;
+        position: absolute;
+        top: 10px;
+        right: 10;
+        padding: 5px;
+        border-radius: 25px;
+    }
+    .handleCloseBtn:hover{
+        background-color: #e3dede;
+    }
     .modalInfo{
         flex-direction: column;
         justify-content: center;
         align-items:center ;
-        padding: 20px;
-    }
-    .modalWrapper2{
-        width: 80%;
+        padding: 0 20px;
     }
     .firstmodal{
         font-size: 18px;

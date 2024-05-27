@@ -35,6 +35,7 @@ const Navbar = () => {
     console.log("width",windowWidth);
     const [count, setCount] = useState(0);
     const [isMenu, setIsMenu] = useState(false)
+    const [isOpen, setOpen ] = useState(true)
     const [selectedCategory, setSelectedCategory] = useState('');
     const navigate = useNavigate();
     const dispatch = useDispatch();
@@ -127,7 +128,7 @@ const Navbar = () => {
       }, []);
       const menuHandler = ()=>{
         if(windowWidth <= 580){
-        setIsMenu((prev)=>!prev)
+        setIsMenu(isMenu)
         }
     }
     return (
@@ -194,7 +195,7 @@ const Navbar = () => {
 
                             <Grid item xs={12} sm={12} md={8} lg={6} xl={6} order={{ xs: 3, md: 2 }} style={{ display: "flex", alignItems: "center", justifyContent: "flex-end" }}>
                                 <div className='categoryInfo'>
-                                    <ul className='categoryList'>
+                                    <ul className={`categoryList ${isMenu ? "other":"mobile"}`}>
                                         { isMenu &&
                                             categories.map((category) => (
                                                 <li className={selectedCategory === category ? "active" : ""} onClick={() => categoryHandler(category)} tabindex="0">{category.toUpperCase()}</li>
