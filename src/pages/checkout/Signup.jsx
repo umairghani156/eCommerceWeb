@@ -76,12 +76,13 @@ const Signup = () => {
                         draggable: true,
                         progress: undefined,
                         theme: "light",
-                        });
+                        });                       
+                        setTimeout(()=>{
+                            navigate("/order")
+                        },1000)
                 }
 
-                setTimeout(()=>{
-                    navigate("/order")
-                },1000)
+               
                 // ...
             })
             .catch((error) => {
