@@ -113,7 +113,7 @@ const Navbar = () => {
             if (newWindowWidth > 580) {
               setIsMenu(true);
             }
-            else{
+            else if(newWindowWidth < 580){
             setIsMenu(false);
             }
         };
